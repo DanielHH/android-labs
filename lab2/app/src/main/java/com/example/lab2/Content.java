@@ -2,9 +2,9 @@ package com.example.lab2;
 
 public class Content {
     static String[] Info = {
-            "Sweden\n\n bla bla",
-            "Norway\n\n blaalalal",
-            "Squarepants\n\n sjishfd",
-            "wasduhasoduhguod"
+            "Sweden\n\n is awesome",
+            "Norway\n\n is cool and all, however...",
+            "Squarepants\n\n is the shit",
+            "This is filler info"
     };
 }

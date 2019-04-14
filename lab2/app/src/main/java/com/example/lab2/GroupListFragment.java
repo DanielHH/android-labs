@@ -1,6 +1,7 @@
 package com.example.lab2;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +15,7 @@ public class GroupListFragment extends android.support.v4.app.ListFragment {
     OnGroupListSelectedListener mCallback;
 
     public interface OnGroupListSelectedListener {
-        public void onObjectSelected(int position);
+        void onObjectSelected(int position);
     }
 
     @Override
@@ -33,15 +34,15 @@ public class GroupListFragment extends android.support.v4.app.ListFragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception.
         try {
-            mCallback = (OnGroupListSelectedListener) activity;
+            mCallback = (OnGroupListSelectedListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(context.toString()
                     + " must implement OnGroupListSelectedListener");
         }
     }
