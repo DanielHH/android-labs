@@ -26,16 +26,14 @@ public class InfoFragment extends Fragment {
 
         Bundle args = getArguments();
         if (args != null) {
-            Log.d("deee", Integer.toString(args.getInt(ARG_POSITION)));
             updateInfoView(args.getInt(ARG_POSITION));
         } else if (mCurrentPosition != -1) {
-            Log.d("deee", "hejehj");
             updateInfoView(mCurrentPosition);
         }
     }
 
     public void updateInfoView(int position) {
-        TextView info = getActivity().findViewById(R.id.info);
+        TextView info = getActivity().findViewById(R.id.info_view);
         info.setText(Content.Info[position]);
         mCurrentPosition = position;
     }
