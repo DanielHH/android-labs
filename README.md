@@ -30,3 +30,8 @@ kan dessutom innehålla flera fragment, där ett av dessa är ett ListFragment.
 
 3. Det viktigaste (?) jag googlat under den här labben är hur man definierar 
 layouts för olika skärmstorlekar.
+
+## Lab 3
+1. Externa bibliotek läggs till i ett android-projekt genom att lägga till 
+bibliotekets paketnamn i build.gradle-filen i dependencies,
+och sedan synka projektet.
