@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -19,6 +20,8 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
 public class InfoFragment extends Fragment {
     final static String ARG_POSITION = "position";
@@ -47,7 +50,13 @@ public class InfoFragment extends Fragment {
     }
 
     public void updateInfoView(int position, String groupName) {
-        final TextView info = getActivity().findViewById(R.id.info_view);
+        final LinearLayout linearLayout;
+        if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) {
+            linearLayout = getActivity().findViewById(R.id.info_layout_wide);
+        } else {
+            linearLayout = getActivity().findViewById(R.id.info_layout);
+        }
+        linearLayout.removeAllViews();
         RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
         final String url = "https://tddd80server.herokuapp.com/medlemmar/" + groupName;
@@ -59,7 +68,15 @@ public class InfoFragment extends Fragment {
                     public void onResponse(JSONObject response) {
                         try {
                             JSONArray results = response.getJSONArray("medlemmar");
-                            info.setText(results.toString());
+                            for (int i = 0; i < results.length(); i++) {
+                                JSONObject member = results.getJSONObject(i);
+                                String email = member.get("epost").toString();
+                                String name = member.get("namn").toString();
+                                String answer = member.get("svarade").toString();
+                                TextView textView = new TextView(getContext());
+                                textView.setText(email + ", " + name + ", " + answer);
+                                linearLayout.addView(textView);
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
