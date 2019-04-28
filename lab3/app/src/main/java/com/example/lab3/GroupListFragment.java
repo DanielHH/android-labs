@@ -25,15 +25,15 @@ import java.util.ArrayList;
 public class GroupListFragment extends android.support.v4.app.ListFragment {
     OnGroupListSelectedListener mCallback;
 
-    ArrayList<String> list_of_objects = new ArrayList<String>();
-
     public interface OnGroupListSelectedListener {
-        void onObjectSelected(int position);
+        void onObjectSelected(int position, String groupName);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        final ArrayList<String> list_of_objects = new ArrayList<String>();
 
         RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
@@ -85,7 +85,8 @@ public class GroupListFragment extends android.support.v4.app.ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        mCallback.onObjectSelected(position);
+        String groupName = (l.getItemAtPosition(position).toString());
+        mCallback.onObjectSelected(position, groupName);
 
         getListView().setItemChecked(position, true);
     }

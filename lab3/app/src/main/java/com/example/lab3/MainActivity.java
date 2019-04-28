@@ -26,16 +26,17 @@ public class MainActivity extends FragmentActivity
         }
     }
 
-    public void onObjectSelected(int position) {
+    public void onObjectSelected(int position, String groupName) {
         InfoFragment infoFrag = (InfoFragment)
                 getSupportFragmentManager().findFragmentById(R.id.info_fragment);
         if (infoFrag != null && getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) {
-            infoFrag.updateInfoView(position);
+            infoFrag.updateInfoView(position, groupName);
         }
         else {
             InfoFragment newFragment = new InfoFragment();
             Bundle args = new Bundle();
             args.putInt(InfoFragment.ARG_POSITION, position);
+            args.putString(InfoFragment.ARG_NAME, groupName);
             newFragment.setArguments(args);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
