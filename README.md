@@ -35,3 +35,10 @@ layouts för olika skärmstorlekar.
 1. Externa bibliotek läggs till i ett android-projekt genom att lägga till 
 bibliotekets paketnamn i build.gradle-filen i dependencies,
 och sedan synka projektet.
+
+2. JavaBean är en standard för en java-klass, som uppfyller följande konventioner: 
+    * Alla funktioner och variabler är privata och har setters och getters.
+    * Implementerar Serializable.
+    * Har en publik konstruktor som ej tar argument.
+
+3. Det viktigaste jag har behövt googla är exempel på requests med volley-biblioteket.
