@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Lab4</string>
+
+    /*Location services*/
+    <string name="service_not_available">Service not available</string>
+    <string name="invalid_lat_long_used">Invalid use of coordinates</string>
+    <string name="no_address_found">No address found</string>
+    <string name="address_found">Address found</string>
+    <string name="no_geocoder_available">No geocoder available</string>
+</resources>
