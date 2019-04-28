@@ -2,16 +2,30 @@ package com.example.lab3;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class GroupListFragment extends android.support.v4.app.ListFragment {
     OnGroupListSelectedListener mCallback;
+
+    ArrayList<String> list_of_objects = new ArrayList<String>();
 
     public interface OnGroupListSelectedListener {
         void onObjectSelected(int position);
@@ -20,13 +34,35 @@ public class GroupListFragment extends android.support.v4.app.ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ArrayList<String> list_of_objects = new ArrayList<String>();
-        list_of_objects.add("Sweden");
-        list_of_objects.add("Norway");
-        list_of_objects.add("Squarepants");
-        list_of_objects.add("GreatStuff");
-        ArrayAdapter<String> objects = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, list_of_objects);
-        setListAdapter(objects);
+
+        RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+
+        final String url = "https://tddd80server.herokuapp.com/grupper";
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray results = response.getJSONArray("grupper");
+                            for (int i = 0; i < results.length(); i++) {
+                                list_of_objects.add(results.get(i).toString());
+                                ArrayAdapter<String> objects = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, list_of_objects);
+                                setListAdapter(objects);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("dee: ", error.toString());
+                    }
+                });
+        queue.add(jsonObjectRequest);
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.grouplist_view, container, false);

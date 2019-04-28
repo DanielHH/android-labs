@@ -33,6 +33,7 @@ public class InfoFragment extends Fragment {
 
     public void updateInfoView(int position) {
         TextView info = getActivity().findViewById(R.id.info_view);
+        
         info.setText(Content.Info[position]);
         mCurrentPosition = position;
     }
