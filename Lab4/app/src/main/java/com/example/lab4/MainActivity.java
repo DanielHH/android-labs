@@ -1,6 +1,7 @@
 package com.example.lab4;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,7 +18,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -39,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
     private Bitmap bitmap;
     private Uri photoURI;
-    private File imageFile = null;
     private final int PICK_IMAGE_CAMERA = 1, PICK_IMAGE_GALLERY = 2;
     private int MY_PERMISSIONS_REQUEST_CAMERA = 3;
     private int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 4;
@@ -130,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 photoURI = FileProvider.getUriForFile(this,
-                        "com.lab3.android.fileprovider",
+                        "com.lab4.android.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, PICK_IMAGE_CAMERA);
@@ -138,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // TODO: Rescale images.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Uri selectedImage = null;
@@ -151,35 +152,16 @@ public class MainActivity extends AppCompatActivity {
         try {
             bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 1, bytes);
             Log.e("Activity", "Pick from Gallery::>>> ");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Bitmap finalBitmap = bitmapScaler(bitmap);
-        imageView.setImageBitmap(finalBitmap);
-        persistImage(finalBitmap, "profilePic");
+
+        //int desiredWidth = dipToPixels(this, 220);
+        //Bitmap finalBitmap = bitmapScaler(bitmap, desiredWidth);
+        imageView.setImageBitmap(bitmap);
         checkLocation();
-    }
-
-    private Bitmap bitmapScaler(Bitmap bitmap) {
-        final int goodWidth = 500;
-        float factor = goodWidth / (float) bitmap.getWidth();
-        return Bitmap.createScaledBitmap(bitmap, goodWidth, (int) (bitmap.getHeight() * factor), true);
-    }
-
-    private void persistImage(Bitmap bitmap, String name) {
-        File filesDir = getApplicationContext().getFilesDir();
-        imageFile = new File(filesDir, name + ".jpg");
-        OutputStream os;
-        try {
-            os = new FileOutputStream(imageFile);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 1, os);
-            os.flush();
-            os.close();
-        } catch (Exception e) {
-            Log.e(getClass().getSimpleName(), "Error writing bitmap", e);
-        }
     }
 
     private File createImageFile() throws IOException {
@@ -194,6 +176,18 @@ public class MainActivity extends AppCompatActivity {
         );
         return image;
     }
+/*
+    public static int dipToPixels(Context context, float dipValue) {
+        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dipValue, metrics));
+    }
+
+    private Bitmap bitmapScaler(Bitmap bitmap, int desiredWidth) {
+        final int goodWidth = desiredWidth;
+        float factor = goodWidth / (float) bitmap.getWidth();
+        return Bitmap.createScaledBitmap(bitmap, goodWidth, (int) (bitmap.getHeight() * factor), true);
+    }
+*/
 
     private void checkLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
