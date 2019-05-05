@@ -42,3 +42,16 @@ och sedan synka projektet.
     * Har en publik konstruktor som ej tar argument.
 
 3. Det viktigaste jag har behövt googla är exempel på requests med volley-biblioteket.
+
+## Lab 4
+1. Vet inte vad som åsyftas med problem vid skalning av en bild. Är det att aspect ration kan bli konstig?
+Jag har bara satt följande: "android:layout_width="220dp", android:layout_height="220dp"", 
+vilket innebär att bilden får vara max 220 dp bred och hög. 
+Där gränsen nås först bestäms storleken. 
+
+2. Både IntentService och AsyncTask jobbar asynkront och med worker threads i bakgrunden. 
+I AsyncTask måste man använda sig av doInBackground för att detta ska fungera väl. Medan det, i dokumentationen, 
+rekommenderas att ett jobb i Asynctask högst ska ta ett par sekunder att slutföra, 
+verkar det vara mer ok för ett IntentService att ta den tid den behöver.
+
+3. Det viktigaste jag har kollat upp när jag har hållit på med detta är hur man hanterar full-storleksbilder, och inte endast thumbnailen.
