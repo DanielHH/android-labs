@@ -28,7 +28,7 @@ av elementen. Ett ListFragment är liknande en ListActivity, med skillnaded att
 fragmentet kan bytas ut utan att behöva byta ut hela vyn. En vy kan dessutom 
 kan dessutom innehålla flera fragment, där ett av dessa är ett ListFragment.
 
-3. Det viktigaste (?) jag googlat under den här labben är hur man definierar 
+3. Det viktigaste jag googlat under den här labben är hur man definierar 
 layouts för olika skärmstorlekar.
 
 ## Lab 3
@@ -55,3 +55,20 @@ rekommenderas att ett jobb i Asynctask högst ska ta ett par sekunder att slutf�
 verkar det vara mer ok för ett IntentService att ta den tid den behöver.
 
 3. Det viktigaste jag har kollat upp när jag har hållit på med detta är hur man hanterar full-storleksbilder, och inte endast thumbnailen.
+
+Hur får man in en placeholder-bild i sin imageview? Hur får man ut exakt address och ej endast koordinater på sin plats? 
+Hur hanterar man full-storleksbilder och inte endast thumbnailen? Dessa är de tre viktigaste frågorna jag har sökt svar på under den här labbserien.
+
+För att besvara de två sista frågorna fick man hjälp på traven redan av kurshemsidan 
+som vägledde en till den naturliga destinationen developer.android.com.
+Hit skulle jag nog funnit mig på egen hand också då mina normala googlingar 
+i samband med androidutvecklandet har sett ut på ungefär följande sätt: "[problembeskrivning] android developer". 
+Här hamnar man dock oftast när det handlar om större utvecklingfrågor, typ "How to take photos in android". 
+När jag inte pallar läsa massa dokumentation, brukar jag även ibland youtuba sådana här frågeställningar.
+Om problemet är specifikare eller, i många fall, ett specifikt fel/felmeddelande så resulterar googlingen oftast i en tråd på stackoverflow. 
+Detta kommer oftast av sig naturligt då en googling i stil med "[problembeskrivning] android" leder till en tråd på stackoverflow med samma/liknande problem.
+
+Den första frågan löstes med hjälp av en youtube-video som visade hur man importerar 
+en plugin i android studio som sedan kan användas för att importera bilder till res/drawable-mappen, varav man sedan hänvisar till i sin imageView.
+Den andra och tredje frågan fann sina svar på developer.android.com på de officiella sidorna. 
+Den tredje frågan krävde dock även en del stackoverflowande på vägen innan det blev bra.
