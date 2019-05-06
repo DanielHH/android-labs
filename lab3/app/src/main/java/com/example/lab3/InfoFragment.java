@@ -69,12 +69,17 @@ public class InfoFragment extends Fragment {
                         try {
                             JSONArray results = response.getJSONArray("medlemmar");
                             for (int i = 0; i < results.length(); i++) {
+                                TextView textView = new TextView(getContext());
                                 JSONObject member = results.getJSONObject(i);
                                 String email = member.get("epost").toString();
                                 String name = member.get("namn").toString();
-                                String answer = member.get("svarade").toString();
-                                TextView textView = new TextView(getContext());
-                                textView.setText(email + ", " + name + ", " + answer);
+                                String answer;
+                                if (member.has("svarade")) {
+                                    answer = member.get("svarade").toString();
+                                    textView.setText(email + ", " + name + ", " + answer);
+                                } else {
+                                    textView.setText(email + ", " + name);
+                                }
                                 linearLayout.addView(textView);
                             }
                         } catch (JSONException e) {
