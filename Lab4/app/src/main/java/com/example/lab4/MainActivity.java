@@ -202,7 +202,6 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Location location) {
                             lastLocation = location;
-                            Log.d("deee", "we AreRe!!" + lastLocation);
 
                             // In some rare cases the location returned can be null
                             if (lastLocation == null) {
